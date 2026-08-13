@@ -2,7 +2,7 @@
 
 English | [简体中文](README.zh-CN.md)
 
-A Codex skill for automatic, evidence-based association-football player review. Give it a match link plus enough information to identify the player; it can find the player's minutes, log every visible reception and meaningful action, diagnose improvement opportunities, and compare the performance with previous matches. Self-written notes and timestamps are optional.
+A Codex skill for automatic, evidence-based association-football player review. Give it a match link plus enough information to identify the player; it can find the player's minutes, build a chronological ledger of every confidently attributable attacking, defending, transition, restart, on-ball, and meaningful off-ball sequence, diagnose improvement opportunities, and compare the performance with previous matches. Self-written notes and timestamps are optional.
 
 The skill is designed for player development rather than highlight generation. It separates what is visible from what is inferred, records confidence and video timestamps, and supports longitudinal comparison across matches.
 
@@ -12,7 +12,8 @@ The skill is designed for player development rather than highlight generation. I
 - Builds a private longitudinal profile, then uses it to understand the player's role and priorities in future reviews.
 - Handles known or initially unknown playing intervals and normalizes mixed timestamp formats.
 - Re-identifies the target player after substitutions, halftime, camera cuts, and kit changes.
-- Reviews the player's minutes continuously and creates a timestamped ledger of every identifiable reception plus other meaningful actions.
+- Reviews the player's minutes continuously and creates a primary timestamped ledger of every identifiable player-relevant sequence, including defensive and no-touch actions.
+- Produces a complete reception subset for focused receiving and buildup analysis.
 - Reviews optional user-marked moments without requiring the user to pre-analyze the match.
 - Separates decision quality, technical execution, tactical effect, and physical context.
 - Uses position-specific lenses for fullbacks, centre-backs, midfielders, wingers, strikers, and goalkeepers.
@@ -43,6 +44,7 @@ This creates `skills/analyze-football-match-video/references/player-profile.md`.
 
 - “Use `$analyze-football-match-video` to review me. Here is the Veo link; I am number 10 on the blue team.”
 - “Analyze every one of my receptions and tell me which possessions I should handle differently. I do not have timestamps.”
+- “Include every defensive sequence involving me, even when I never touch the ball.”
 - “Compare this match with my previous games: what improved, what regressed, and which old problem is still unresolved?”
 
 ## Privacy and limitations
