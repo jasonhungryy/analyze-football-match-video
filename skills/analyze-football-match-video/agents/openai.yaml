@@ -1,4 +1,4 @@
 interface:
   display_name: "足球比赛录像复盘"
-  short_description: "自动复盘个人全部接球回合并追踪跨场进步"
-  default_prompt: "使用 $analyze-football-match-video 自动复盘我的足球比赛录像；如果是首次使用先为我建档，然后记录全部可辨认接球回合，比较历史表现，并给出当前训练重点。"
+  short_description: "自动复盘个人全部攻防相关回合并追踪跨场进步"
+  default_prompt: "使用 $analyze-football-match-video 自动复盘我的足球比赛录像；如果是首次使用先为我建档，然后按时间记录全部可辨认的有球、防守、转换、重启和无球相关回合，比较历史表现，并给出当前训练重点。"
