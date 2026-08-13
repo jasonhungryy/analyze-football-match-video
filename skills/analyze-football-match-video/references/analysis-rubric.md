@@ -1,8 +1,38 @@
 # Evidence and analysis rubric
 
-## Complete reception ledger
+## Complete player-involvement ledger
 
-For a full-match individual review, log every visible reception attributable to the player with adequate identity confidence. Do not select only highlights or mistakes.
+For a full-match individual review, continuously inspect every identified playing interval and create a chronological ledger of every visible, confidently attributable material sequence involving the player. This is the primary evidence table. Do not select only highlights, mistakes, touches, or receptions.
+
+Include:
+
+- On-ball actions and meaningful touches, whether controlled or uncontrolled.
+- Defensive actions: pressing, delaying, duels, tackles, interceptions, blocks, clearances, recovery runs, tracking, marking, handovers, line movement, box protection, cover, and second-ball responsibility.
+- Attacking and defensive transitions.
+- Restarts taken, received, defended, or visibly prepared for.
+- Meaningful attacking support, width, overlaps, underlaps, decoy runs, box runs, and rest-defence.
+- Routine positioning when it directly shows the player's assignment, spacing, or response to the phase.
+
+Merge a continuous passage into one sequence window while phase, role, and outcome remain substantially the same. Split it when any of those materially changes. A player merely being visible is not enough; the player's action or position must be directly relevant to the play.
+
+| Field | What to record |
+|---|---|
+| Sequence number | Sequential within the match |
+| Timestamp | Exact start and end of the material passage |
+| Labels | One or more: on-ball, defending, attacking transition, defensive transition, restart, attacking off-ball, defensive positioning |
+| Observation | Only what is visible |
+| Decision | Appropriate, mixed, poor, or not judgeable |
+| Execution | Effective, mixed, failed, or not judgeable |
+| Effect | Immediate tactical consequence |
+| Better option | Only when visibly supported; otherwise “not established” |
+| Confidence | Separate identity and interpretation confidence |
+| Source | User marker or blind scan |
+
+At the end, report the total confirmed sequence windows, overlapping label counts, uncertain exclusions, and any footage ranges where completeness could not be established. Never add overlapping label counts and present the sum as a unique-event total.
+
+## Complete reception subset
+
+After the full player-involvement ledger, log every visible reception attributable to the player with adequate identity confidence. Do not select only highlights or mistakes. This subset supplements rather than replaces the main ledger.
 
 Use these reception types:
 
@@ -36,9 +66,9 @@ At the end, report:
 - Possible receptions excluded because identity or contact was uncertain.
 - Any footage ranges where completeness could not be established.
 
-## Other-action ledger fields
+## Compact non-reception fields
 
-Record one row for every material event that is not already captured adequately in the reception ledger:
+When a compact clip review does not justify the full table, use these minimum fields for a non-reception action. Full-match reviews must use the complete player-involvement ledger above.
 
 | Field | What to record |
 |---|---|
@@ -135,7 +165,7 @@ Rank priorities using:
 
 ## Blind-scan minimum
 
-For a full-match request, inspect all identified playing intervals continuously for receptions. In addition, inspect at least one informative off-ball passage from every relevant phase and each playing interval. Include quiet passages; they often reveal positioning and scanning better than highlights.
+For a full-match request, inspect all identified playing intervals continuously for every material player-involvement sequence and for the complete reception subset. Include quiet defensive and off-ball passages; they often reveal positioning, scanning, marking, and line discipline better than highlights.
 
 Representative sampling is acceptable only when the user asks for a quick review, the source contains clips rather than the full performance, or technical limitations prevent continuous coverage. Label the result accordingly.
 
