@@ -1,5 +1,7 @@
 # Analyze Football Match Video
 
+English | [简体中文](README.zh-CN.md)
+
 A Codex skill for automatic, evidence-based association-football player review. Give it a match link plus enough information to identify the player; it can find the player's minutes, log every visible reception and meaningful action, diagnose improvement opportunities, and compare the performance with previous matches. Self-written notes and timestamps are optional.
 
 The skill is designed for player development rather than highlight generation. It separates what is visible from what is inferred, records confidence and video timestamps, and supports longitudinal comparison across matches.
