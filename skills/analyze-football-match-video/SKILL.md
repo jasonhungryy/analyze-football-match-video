@@ -1,6 +1,6 @@
 ---
 name: analyze-football-match-video
-description: Automatically analyze an individual association-football player's full match or clips from Veo, YouTube, Google Drive, similar web links, or uploaded video. Use when the user provides a match and player identity cues and wants every visible reception timestamped, on-ball and off-ball actions reviewed, better choices explained, a first-use player profile created, or progress and regression compared across matches. User-written summaries and timestamps are optional. Support all positions, public or signed-in video players, initially unknown playing intervals, and Chinese or English reports.
+description: Automatically analyze an individual association-football player's full match or clips from Veo, YouTube, Google Drive, similar web links, or uploaded video. Use when the user provides a match and player identity cues and wants every confidently attributable attacking, defending, transition, restart, on-ball, and off-ball sequence timestamped and reviewed; better choices explained; a first-use player profile created; or progress and regression compared across matches. User-written summaries and timestamps are optional. Support all positions, public or signed-in video players, initially unknown playing intervals, and Chinese or English reports.
 ---
 
 # Analyze Football Match Video
@@ -78,9 +78,32 @@ Re-lock identity after:
 
 Keep identity confidence separate from action confidence. If identity becomes uncertain, stop attributing actions until the player is reacquired. Report unresolved ambiguity explicitly.
 
-## 5. Build a complete reception and action ledger
+## 5. Build a complete player-involvement ledger
 
-For a full-match request, review every identified playing interval continuously. Do not replace continuous review with representative sampling merely to save time. The primary deliverable is a chronological log of every visible, confidently attributable reception.
+For a full-match request, review every identified playing interval continuously. Do not replace continuous review with representative sampling merely to save time. The primary deliverable is one chronological ledger of **every visible, confidently attributable material sequence involving the player**, not a reception-only or highlight-only list.
+
+Include all of these when they can be attributed with adequate confidence:
+
+- Every reception, possession, recovery, carry, pass, dribble, cross, shot, clearance, and uncontrolled but tactically meaningful touch.
+- Every defensive press, duel, tackle, interception, block, clearance, recovery run, delay, marking action, handover, line movement, box action, cover action, and second-ball responsibility.
+- Every attacking or defensive transition in which the player makes a relevant reaction, run, recovery, or balancing movement.
+- Every restart taken, received, defended, or prepared for when the player's assignment or movement is visible.
+- Every meaningful attacking off-ball action such as support, width, overlap, underlap, decoy run, box run, or rest-defence position.
+- Routine positioning when it directly demonstrates the player's role, assignment, spacing, or response to the phase. Do not omit it merely because there is no touch, mistake, or highlight.
+
+Treat one continuous passage with the same phase, role, and outcome as one sequence window. Split the row when the phase, player role, or tactical outcome materially changes. Do not create one row per frame, and do not pad the ledger with moments where the player is merely visible but has no direct relevance to the play.
+
+For every material sequence, record:
+
+- Sequence number and exact video timestamp or timestamp range.
+- Phase and action labels; allow multiple labels such as defensive transition plus recovery.
+- What was directly observed.
+- Decision quality, technical execution, and immediate tactical effect when judgeable.
+- A concise better option or coaching note when the evidence supports one.
+- Separate identity and interpretation confidence.
+- Whether the event came from a user marker or blind scan.
+
+After the complete player-involvement ledger, create a **complete reception subset** so receiving patterns remain easy to train and compare.
 
 Count a reception when the player intentionally receives or gains control of a ball from a teammate, opponent, restart, rebound, or loose-ball recovery. For every reception, record:
 
@@ -94,30 +117,17 @@ Count a reception when the player intentionally receives or gains control of a b
 - A short improvement suggestion when the choice or execution can improve.
 - Identity and interpretation confidence.
 
-Also log meaningful non-reception actions that affect the evaluation, including carries that start off-camera, duels, interceptions, tackles, pressing actions, recovery runs, marking, line-breaking runs, box actions, set pieces, and decisive off-ball positioning.
-
-For every other material observation, record:
-
-- Video timestamp or timestamp range.
-- Phase of play and score or tactical context when visible.
-- Observable action.
-- Decision quality.
-- Technical execution.
-- Immediate tactical effect.
-- Confidence in player identity and interpretation.
-- Whether the event came from a user marker or blind scan.
-
 Use direct visual language. Distinguish:
 
 - **Observed:** visible in the footage.
 - **Inferred:** a reasonable tactical interpretation.
 - **Unknown:** not visible or not recoverable from the source.
 
-Number receptions sequentially so the player can refer to them later. Report a total reception count and the number excluded because identity or ball contact was uncertain. Do not turn one event into a stable trait. Label a mechanism as repeated only when it appears across multiple independent events or phases.
+Number all player-involvement sequences sequentially so the player can refer to them later, and number receptions inside the subset when useful. Report the total confirmed sequence windows, reception total, action-label breakdown, uncertain exclusions, and uncovered ranges. Because one sequence may carry multiple labels, do not add overlapping category counts as if they were mutually exclusive. Do not turn one event into a stable trait. Label a mechanism as repeated only when it appears across multiple independent events or phases.
 
 ## 6. Review the whole performance automatically
 
-Continuously review all located playing intervals for the complete reception ledger. In parallel, review off-ball behaviour across these phases:
+Continuously review all located playing intervals for the complete player-involvement ledger and the reception subset. Review the player's behaviour across these phases:
 
 - In-possession buildup.
 - Progression and final-third attacks.
@@ -126,9 +136,9 @@ Continuously review all located playing intervals for the complete reception led
 - Set pieces when relevant.
 - Off-ball movement away from the immediate camera focus.
 
-If the user supplied markers or notes, verify them as an additional section; never make them a prerequisite. State whether each is supported, partly supported, contradicted, or not judgeable.
+If the user supplied markers or notes, verify them as an additional section; never make them a prerequisite. State whether each is supported, partly supported, contradicted, or not judgeable. Defensive sequences and meaningful no-touch actions belong in the main ledger, not in an optional appendix.
 
-Disclose whether coverage was continuous, sampled, or restricted to clips. If technical limitations make complete review impossible, name the missing ranges and do not label the reception log complete.
+Disclose whether coverage was continuous, sampled, or restricted to clips. If technical limitations make complete review impossible, name the missing ranges and do not label either the player-involvement ledger or reception subset complete.
 
 ## 7. Evaluate by mechanism and role
 
@@ -179,15 +189,15 @@ Include:
 
 1. Scope, identity confidence, and coverage limits.
 2. Direct performance conclusion.
-3. The complete numbered reception ledger with timestamps, actions, outcomes, and better options.
-4. Other meaningful on-ball and off-ball evidence.
+3. The complete numbered player-involvement ledger in chronological order, covering attacking, defending, transitions, restarts, on-ball, and meaningful off-ball sequences.
+4. The complete reception subset with timestamps, actions, outcomes, and better options.
 5. Optional user-note verification.
 6. Strengths worth preserving.
 7. Improvements, regressions, and status of previously tracked issues.
 8. Two or three development priorities, clearly identifying the current top priority.
 9. Exactly three match-day cues.
 10. A short training plan with measurable indicators.
-11. Uncertainty, excluded receptions, and inaccessible ranges.
+11. Uncertainty, excluded player-involvement sequences or receptions, and inaccessible ranges.
 
 Respond in the user's language. Use common football vocabulary and add an English term in parentheses only when it improves clarity.
 
