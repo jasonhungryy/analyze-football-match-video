@@ -10,21 +10,30 @@ State the source, target player, playing intervals, timebase, coverage method, i
 
 Give a concise overall assessment. Name the strongest repeatable behaviour, the highest-value development mechanism, the direction from previous matches, and whether the evidence is sufficient for a stable conclusion.
 
-### Complete reception ledger
+### Complete player-involvement ledger
+
+State the total number of confirmed sequence windows, uncertain exclusions, and any uncovered video ranges. Make this the primary chronological evidence table.
+
+| # | Video range | Phase / labels | Observed involvement | Decision / execution / effect | Better option / coaching note | Confidence |
+|---:|---:|---|---|---|---|---|
+
+Include every confirmed attacking, defending, transition, restart, on-ball, and meaningful off-ball sequence, including routine positioning that directly shows the player's responsibility. Merge one continuous phase into one row; do not create one row per frame or include moments where the player is merely visible and uninvolved.
+
+### Complete reception subset
 
 State the number of confirmed receptions, uncertain exclusions, and any uncovered video ranges.
 
 | # | Video time | Receive context | First touch and action | Outcome | Better option / coaching note | Confidence |
 |---:|---:|---|---|---|---|---|
 
-Include every confirmed reception, including routine safe possessions. Use “no clear better option” when the footage does not support an alternative.
+Include every confirmed reception, including routine safe possessions. Use “no clear better option” when the footage does not support an alternative. This is a training subset of the complete player-involvement ledger.
 
-### Other meaningful actions
+### Optional compact supporting table
 
 | Video time | Phase | Observation | Decision / execution | Tactical effect | Confidence |
 |---:|---|---|---|---|---|
 
-Keep observation separate from interpretation. Mark user-supplied timestamps.
+Use only when a short group of observations needs emphasis outside the main ledger. Do not move defensive or no-touch actions out of the main ledger merely because they are not receptions. Keep observation separate from interpretation and mark user-supplied timestamps.
 
 ### Verification of the player's notes
 
@@ -82,7 +91,7 @@ List anything that could change the conclusion: incomplete footage, low identity
 Use when only a few clips are available:
 
 1. Scope and limitations.
-2. Every visible reception in each clip plus one row per other meaningful action.
+2. Every visible material player-involvement sequence in each clip, plus the reception subset when applicable.
 3. What the clips do and do not support.
 4. One strength.
 5. One development mechanism.
