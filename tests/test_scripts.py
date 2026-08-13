@@ -61,7 +61,9 @@ class SkillContractTests(unittest.TestCase):
     def test_skill_requires_automatic_review_not_user_timestamps(self):
         skill = (ROOT / "skills" / "analyze-football-match-video" / "SKILL.md").read_text(encoding="utf-8")
         self.assertIn("Do not require the player to summarize the match or mark timestamps first", skill)
-        self.assertIn("every visible, confidently attributable reception", skill)
+        self.assertIn("every visible, confidently attributable material sequence involving the player", skill)
+        self.assertIn("Every defensive press, duel, tackle, interception", skill)
+        self.assertIn("Defensive sequences and meaningful no-touch actions belong in the main ledger", skill)
         self.assertIn("Compare with the player's history", skill)
         self.assertIn("Default to a complete review", skill)
         self.assertIn("Do not add a match entry when access failed", skill)
