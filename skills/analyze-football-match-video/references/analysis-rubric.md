@@ -167,6 +167,12 @@ Rank priorities using:
 
 For a full-match request, inspect all identified playing intervals continuously for every material player-involvement sequence and for the complete reception subset. Include quiet defensive and off-ball passages; they often reveal positioning, scanning, marking, and line discipline better than highlights.
 
+Follow `coverage-audit.md`: divide playing time into blocks of at most 60 seconds, complete a continuous identity pass and a separate action/responsibility pass, and validate the manifest before using completeness language. Sparse screenshots, candidate windows, ball-contact detections, or user markers may assist navigation but may not determine which time ranges are reviewed.
+
+Before closing each block, explicitly check for no-touch defending, aerial first points, transition reactions, weak-side/back-post responsibility, pre-reception body orientation, and the action immediately after an apparent clearance, header, tackle, or regain.
+
+When a reconciled user marker exposes a blind-ledger miss, do not patch only that timestamp. Classify the miss, re-open the adjacent block, and rescan all playing intervals for the same event family. The coverage manifest must record that rescan as reviewed.
+
 Representative sampling is acceptable only when the user asks for a quick review, the source contains clips rather than the full performance, or technical limitations prevent continuous coverage. Label the result accordingly.
 
 ## Training translation
