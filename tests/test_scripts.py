@@ -133,6 +133,8 @@ class SkillContractTests(unittest.TestCase):
         self.assertIn("Candidate clips, contact sheets, highlights, ball detections, and user markers are navigation aids only", skill)
         self.assertIn("re-scan the full playing time for the same event family", skill)
         self.assertIn("coverage_audit.py validate", skill)
+        self.assertIn("0.5-second gaps", skill)
+        self.assertIn("mandatory category rescans", skill)
         self.assertIn("Compare with the player's history", skill)
         self.assertIn("Default to a complete review", skill)
         self.assertIn("Do not add a match entry when access failed", skill)
