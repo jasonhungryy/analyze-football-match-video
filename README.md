@@ -17,6 +17,7 @@ The skill is designed for player development rather than highlight generation. I
 - Treats candidate clips and user timestamps as navigation aids, then reconciles every user marker against the blind ledger.
 - If a user marker exposes a miss, records the cause and rescans the full match for the same event family instead of patching only one timestamp.
 - Produces a complete reception subset for focused receiving and buildup analysis.
+- When extracted frames substitute for playback, uses gaps no larger than 0.5 seconds for baseline review and 0.25 seconds for candidate actions, then performs whole-interval rescans for ball arrivals/receptions, defensive responsibility, and post-action continuations.
 - Reviews optional user-marked moments without requiring the user to pre-analyze the match.
 - Separates decision quality, technical execution, tactical effect, and physical context.
 - Uses position-specific lenses for fullbacks, centre-backs, midfielders, wingers, strikers, and goalkeepers.
