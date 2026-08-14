@@ -90,6 +90,8 @@ Before coding events, follow `references/coverage-audit.md` and create a fixed-b
 
 Candidate clips, contact sheets, highlights, ball detections, and user markers are navigation aids only. Never use them as exclusion gates for a complete review. A visible block cannot be closed until it contains at least one material event or a specific explanation of why no material player involvement occurred.
 
+Apply the temporal-resolution gate and mandatory category rescans in `references/coverage-audit.md`. If still frames substitute for direct playback, baseline coverage must use no more than 0.5-second gaps, candidate actions must be reopened at no more than 0.25-second gaps, and retained receptions/contacts/disputed outcomes must be checked at the highest practical source resolution. After the two continuous passes, separately rescan all ball arrivals/receptions, all defensive responsibilities (including no-touch actions), and all post-action continuations. A sparse long-interval ledger triggers an undercount audit, not an event quota.
+
 Include all of these when they can be attributed with adequate confidence:
 
 - Every reception, possession, recovery, carry, pass, dribble, cross, shot, clearance, and uncontrolled but tactically meaningful touch.
