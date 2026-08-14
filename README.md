@@ -13,6 +13,9 @@ The skill is designed for player development rather than highlight generation. I
 - Handles known or initially unknown playing intervals and normalizes mixed timestamp formats.
 - Re-identifies the target player after substitutions, halftime, camera cuts, and kit changes.
 - Reviews the player's minutes continuously and creates a primary timestamped ledger of every identifiable player-relevant sequence, including defensive and no-touch actions.
+- Audits coverage in blocks of at most 60 seconds with separate identity and action passes; a visible block must contain events or a specific quiet-phase reason.
+- Treats candidate clips and user timestamps as navigation aids, then reconciles every user marker against the blind ledger.
+- If a user marker exposes a miss, records the cause and rescans the full match for the same event family instead of patching only one timestamp.
 - Produces a complete reception subset for focused receiving and buildup analysis.
 - Reviews optional user-marked moments without requiring the user to pre-analyze the match.
 - Separates decision quality, technical execution, tactical effect, and physical context.
@@ -50,6 +53,8 @@ This creates `skills/analyze-football-match-video/references/player-profile.md`.
 ## Privacy and limitations
 
 Only analyze footage the user is permitted to access. Do not change sharing settings, upload or republish match footage, expose private links, or infer sensitive identity details. Video review is observational coaching, not medical diagnosis. See the skill references for the full evidence and privacy rules.
+
+The coverage audit prevents a sparse highlight or screenshot pass from being described as complete. It does not promise machine-perfect tracking: identity or visibility gaps remain explicit limitations in the report.
 
 ## Development
 
