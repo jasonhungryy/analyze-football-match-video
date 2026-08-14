@@ -11,6 +11,7 @@ Produce an automatic, evidence-based coaching review of a target player's footba
 
 - Read `references/video-sources.md` when opening or navigating footage.
 - Read `references/player-onboarding.md` when no usable private player profile exists.
+- Read `references/coverage-audit.md` before every full-match or complete-playing-interval review.
 - Read `references/analysis-rubric.md` before evaluating actions or writing the report.
 - Read `references/position-lenses.md` for the target player's position.
 - Read `references/report-templates.md` when producing the final report.
@@ -82,6 +83,13 @@ Keep identity confidence separate from action confidence. If identity becomes un
 
 For a full-match request, review every identified playing interval continuously. Do not replace continuous review with representative sampling merely to save time. The primary deliverable is one chronological ledger of **every visible, confidently attributable material sequence involving the player**, not a reception-only or highlight-only list.
 
+Before coding events, follow `references/coverage-audit.md` and create a fixed-block manifest with `scripts/coverage_audit.py`. Use blocks of no more than 60 seconds and perform two independent passes:
+
+1. A continuous identity-tracking pass that records visibility, player location, position changes, and every identity loss or reacquisition.
+2. A continuous action-and-responsibility pass that checks every event family, including no-touch defending, transitions, weak-side positioning, aerial first points, second balls, and the next action after a touch, header, clearance, tackle, or regain.
+
+Candidate clips, contact sheets, highlights, ball detections, and user markers are navigation aids only. Never use them as exclusion gates for a complete review. A visible block cannot be closed until it contains at least one material event or a specific explanation of why no material player involvement occurred.
+
 Include all of these when they can be attributed with adequate confidence:
 
 - Every reception, possession, recovery, carry, pass, dribble, cross, shot, clearance, and uncontrolled but tactically meaningful touch.
@@ -92,6 +100,8 @@ Include all of these when they can be attributed with adequate confidence:
 - Routine positioning when it directly demonstrates the player's role, assignment, spacing, or response to the phase. Do not omit it merely because there is no touch, mistake, or highlight.
 
 Treat one continuous passage with the same phase, role, and outcome as one sequence window. Split the row when the phase, player role, or tactical outcome materially changes. Do not create one row per frame, and do not pad the ledger with moments where the player is merely visible but has no direct relevance to the play.
+
+For every ball arrival into the player's responsibility zone, possession change, opponent run through the player's channel, cross, aerial ball, restart, or first defensive contact, expand the review to at least six seconds before and after the trigger or to the natural phase boundaries. Do not stop at the apparent outcome. Code the second action separately when its decision, execution, or consequence differs from the first.
 
 For every material sequence, record:
 
@@ -125,6 +135,8 @@ Use direct visual language. Distinguish:
 
 Number all player-involvement sequences sequentially so the player can refer to them later, and number receptions inside the subset when useful. Report the total confirmed sequence windows, reception total, action-label breakdown, uncertain exclusions, and uncovered ranges. Because one sequence may carry multiple labels, do not add overlapping category counts as if they were mutually exclusive. Do not turn one event into a stable trait. Label a mechanism as repeated only when it appears across multiple independent events or phases.
 
+Run `scripts/coverage_audit.py validate` before calling the ledger complete. Pending blocks, a visible block without events or a quiet reason, unreconciled user markers, or an incomplete miss audit invalidate the completeness claim. Identity and visibility gaps must be named as coverage limits even when all review work is finished.
+
 ## 6. Review the whole performance automatically
 
 Continuously review all located playing intervals for the complete player-involvement ledger and the reception subset. Review the player's behaviour across these phases:
@@ -137,6 +149,8 @@ Continuously review all located playing intervals for the complete player-involv
 - Off-ball movement away from the immediate camera focus.
 
 If the user supplied markers or notes, verify them as an additional section; never make them a prerequisite. State whether each is supported, partly supported, contradicted, or not judgeable. Defensive sequences and meaningful no-touch actions belong in the main ledger, not in an optional appendix.
+
+Reconcile user markers only after the blind ledger is drafted. If a supported or partly supported marker was absent or materially misclassified, add the correction, record the miss cause, re-open the adjacent block, and re-scan the full playing time for the same event family. For example, one missed aerial action triggers an aerial rescan; one missed no-touch recovery triggers a transition rescan; one missed post-clearance decision triggers a second-action rescan. Record completion in the manifest before finalizing the report.
 
 Disclose whether coverage was continuous, sampled, or restricted to clips. If technical limitations make complete review impossible, name the missing ranges and do not label either the player-involvement ledger or reception subset complete.
 
@@ -188,16 +202,17 @@ Use the structure in `references/report-templates.md`. Lead with the conclusion,
 Include:
 
 1. Scope, identity confidence, and coverage limits.
-2. Direct performance conclusion.
-3. The complete numbered player-involvement ledger in chronological order, covering attacking, defending, transitions, restarts, on-ball, and meaningful off-ball sequences.
-4. The complete reception subset with timestamps, actions, outcomes, and better options.
-5. Optional user-note verification.
-6. Strengths worth preserving.
-7. Improvements, regressions, and status of previously tracked issues.
-8. Two or three development priorities, clearly identifying the current top priority.
-9. Exactly three match-day cues.
-10. A short training plan with measurable indicators.
-11. Uncertainty, excluded player-involvement sequences or receptions, and inaccessible ranges.
+2. Coverage-audit status: reviewed blocks over total blocks, user-marker reconciliation, same-type rescans caused by misses, and any identity or visibility gaps.
+3. Direct performance conclusion.
+4. The complete numbered player-involvement ledger in chronological order, covering attacking, defending, transitions, restarts, on-ball, and meaningful off-ball sequences.
+5. The complete reception subset with timestamps, actions, outcomes, and better options.
+6. Optional user-note verification.
+7. Strengths worth preserving.
+8. Improvements, regressions, and status of previously tracked issues.
+9. Two or three development priorities, clearly identifying the current top priority.
+10. Exactly three match-day cues.
+11. A short training plan with measurable indicators.
+12. Uncertainty, excluded player-involvement sequences or receptions, and inaccessible ranges.
 
 Respond in the user's language. Use common football vocabulary and add an English term in parentheses only when it improves clarity.
 
