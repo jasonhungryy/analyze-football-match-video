@@ -26,6 +26,17 @@ For a visible block with no material sequence, write a concrete `quiet_reason`. 
 
 Candidate clips, contact sheets, tracking models, audio cues, and highlight metadata may help navigation. They never authorize skipping the continuous block review.
 
+### Temporal-resolution gate
+
+“Continuous review” describes coverage, not merely the fact that every minute has a sheet. When direct video playback is unavailable and still frames are used as the viewing substrate:
+
+- sample visible playing time at intervals of **0.5 seconds or less** for the baseline identity/action passes;
+- re-open every possible ball arrival, duel, defensive responsibility, restart, or possession change at **0.25 seconds or less**, from the natural phase beginning through at least the next action;
+- inspect retained receptions, contacts, and disputed outcomes at the source's highest practical resolution before grading them;
+- never mark a block reviewed from a sparse navigation sheet whose interval can hide a touch, tackle, change of direction, or second action.
+
+Record the baseline and dense-review intervals in the audit notes. If compute, access, or image limits prevent these thresholds, name the affected range as coverage-limited rather than silently reducing temporal resolution.
+
 ## Trigger expansion
 
 Whenever one of these triggers appears, inspect at least six seconds before and six seconds after it, or to the natural beginning and end of the phase:
@@ -52,6 +63,18 @@ Before marking the action pass reviewed, ask:
 6. Was weak-side or back-post positioning tactically material?
 
 Only then record events or a quiet reason.
+
+## Mandatory category rescans
+
+After the two full passes, perform three independent whole-interval rescans before finalizing the ledger:
+
+1. **Ball-arrival and reception rescan:** every teammate pass toward the player, loose ball, rebound, aerial drop, restart receipt, attempted control, and immediate continuation.
+2. **Defensive-responsibility rescan:** every direct duel plus no-touch delay, cover, marking, recovery, weak-side protection, line movement, aerial responsibility, and second-ball responsibility.
+3. **Post-action rescan:** at least the next 5–10 seconds after every touch, header, clearance, tackle, regain, disruption, or initial failed action.
+
+Keep a candidate disposition log: retained, merged, rejected as another player, rejected as ordinary visibility, or unresolved. A candidate list is not complete until every candidate has a disposition.
+
+As a sanity check, an unusually sparse ledger over a long, visible playing interval must trigger an undercount audit. Do not impose a minimum event quota or invent marginal events. Instead, verify player identity, side/direction of play, reception detection, no-touch defending, restarts, and phase continuation, and explain why the interval is genuinely quiet or coverage-limited.
 
 ## User-marker reconciliation and miss feedback loop
 
@@ -84,6 +107,8 @@ python scripts/coverage_audit.py validate work/coverage.json
 ```
 
 Validation fails when a block is pending, a visible block has neither events nor a quiet reason, an event lacks taxonomy/source fields, a marker is unreconciled, or a missed-event audit lacks the mandatory same-type re-scan.
+
+For workflows using extracted stills, validation is also substantively incomplete until the temporal-resolution gate, all three category rescans, source-resolution grading checks, and candidate disposition log are recorded, even if the current script cannot enforce every field mechanically.
 
 `complete_eligible: true` means the workflow has no pending block and no recorded visibility/identity gap. It does not mean machine-perfect or official-data completeness. When `complete_eligible` is false, report the affected ranges and call the result coverage-limited.
 
