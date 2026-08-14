@@ -6,6 +6,10 @@
 
 State the source, target player, playing intervals, timebase, coverage method, identity confidence, and major limitations in two or three sentences.
 
+### Coverage audit
+
+State the block size, reviewed blocks over total blocks, whether both the identity and action passes are complete, user markers reconciled, same-type rescans triggered by misses, and identity or visibility gaps. Use “complete” only when manifest validation allows it; otherwise call the report coverage-limited and name the affected ranges.
+
 ### Direct conclusion
 
 Give a concise overall assessment. Name the strongest repeatable behaviour, the highest-value development mechanism, the direction from previous matches, and whether the evidence is sufficient for a stable conclusion.
