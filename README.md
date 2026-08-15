@@ -12,12 +12,16 @@ The skill is designed for player development rather than highlight generation. I
 - Builds a private longitudinal profile, then uses it to understand the player's role and priorities in future reviews.
 - Handles known or initially unknown playing intervals and normalizes mixed timestamp formats.
 - Re-identifies the target player after substitutions, halftime, camera cuts, and kit changes.
+- Keeps multiple plausible target identities through ambiguous periods instead of forcing one tracker path; every machine-generated candidate must be retained, rejected with a reason, merged, or left explicitly unresolved.
+- Audits every appearance-matching identity anchor in its full-frame context. If one anchor is later found to be a teammate, all downstream tracking and event results are invalidated and rebuilt from clean anchors.
 - Reviews the player's minutes continuously and creates a primary timestamped ledger of every identifiable player-relevant sequence, including defensive and no-touch actions.
-- Audits coverage in blocks of at most 60 seconds with separate identity and action passes; a visible block must contain events or a specific quiet-phase reason.
+- Audits coverage in blocks of at most 30 seconds with separate identity and action passes; every block needs an explicit disposition, and a visible block must contain events or a specific quiet-phase reason.
 - Treats candidate clips and user timestamps as navigation aids, then reconciles every user marker against the blind ledger.
 - If a user marker exposes a miss, records the cause and rescans the full match for the same event family instead of patching only one timestamp.
 - Produces a complete reception subset for focused receiving and buildup analysis.
 - When extracted frames substitute for playback, uses gaps no larger than 0.5 seconds for baseline review and 0.25 seconds for candidate actions, then performs whole-interval rescans for ball arrivals/receptions, defensive responsibility, and post-action continuations.
+- Refuses a completeness claim unless the manifest records sufficient temporal resolution, all three category rescans, source-resolution checks, candidate dispositions, and a six-part undercount audit.
+- Withdraws and fully rebuilds a challenged report when the player identifies repeated omissions or identity drift; it does not merely append the examples supplied by the player.
 - Reviews optional user-marked moments without requiring the user to pre-analyze the match.
 - Separates decision quality, technical execution, tactical effect, and physical context.
 - Uses position-specific lenses for fullbacks, centre-backs, midfielders, wingers, strikers, and goalkeepers.
