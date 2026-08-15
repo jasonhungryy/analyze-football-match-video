@@ -70,6 +70,12 @@ Scan the match to find the target player's appearances when intervals were not p
 
 Build an identity hypothesis from multiple cues rather than one cue alone. Confirm it near the start of every playing interval using at least two stable cues when possible.
 
+Maintain a reviewed identity-reference ledger whenever appearance matching, tracking, or crop similarity is used. A positive anchor must show at least two independently visible cues and must be checked against the full frame, not merely a cropped player image. Keep known same-team confusers as negative references. Never seed the identity gallery from an unverified event just because its timestamp appeared in an older report or a model ranked it highly.
+
+If any identity anchor is later shown to be another player, treat every downstream similarity score, tracker path, candidate ranking, event attribution, and quiet-block conclusion derived from that gallery as contaminated. Invalidate those results, rebuild the gallery from clean anchors, and rescan the complete playing interval. Removing the bad anchor without rebuilding downstream results is not sufficient.
+
+Never force identity into one global best path when several same-team players remain plausible. Keep multiple identity hypotheses through each uncertain interval, especially every player near the ball or the target's responsibility zone who matches stable clothing, footwear, build, position, or re-identification cues. Reconcile every candidate later as the target, another player, ordinary visibility, or unresolved. A tracker that drifts to a teammate is a navigation failure, not evidence that the target had no involvement.
+
 Re-lock identity after:
 
 - Halftime or a change of ends.
@@ -83,14 +89,14 @@ Keep identity confidence separate from action confidence. If identity becomes un
 
 For a full-match request, review every identified playing interval continuously. Do not replace continuous review with representative sampling merely to save time. The primary deliverable is one chronological ledger of **every visible, confidently attributable material sequence involving the player**, not a reception-only or highlight-only list.
 
-Before coding events, follow `references/coverage-audit.md` and create a fixed-block manifest with `scripts/coverage_audit.py`. Use blocks of no more than 60 seconds and perform two independent passes:
+Before coding events, follow `references/coverage-audit.md` and create a fixed-block manifest with `scripts/coverage_audit.py`. Use blocks of no more than 30 seconds and perform two independent passes:
 
 1. A continuous identity-tracking pass that records visibility, player location, position changes, and every identity loss or reacquisition.
 2. A continuous action-and-responsibility pass that checks every event family, including no-touch defending, transitions, weak-side positioning, aerial first points, second balls, and the next action after a touch, header, clearance, tackle, or regain.
 
-Candidate clips, contact sheets, highlights, ball detections, and user markers are navigation aids only. Never use them as exclusion gates for a complete review. A visible block cannot be closed until it contains at least one material event or a specific explanation of why no material player involvement occurred.
+Candidate clips, contact sheets, highlights, ball detections, and user markers are navigation aids only. Never use them as exclusion gates for a complete review. Every block must receive at least one explicit coverage disposition: confirmed direct action, meaningful off-ball involvement, visible with no material involvement, not visible/occluded, identity ambiguous, confirmed confuser, or dead-ball/stoppage. A visible block cannot be closed until it contains at least one material event or a specific explanation of why no material player involvement occurred. A low event count over a long interval is not evidence of completeness; the time-block ledger is.
 
-Apply the temporal-resolution gate and mandatory category rescans in `references/coverage-audit.md`. If still frames substitute for direct playback, baseline coverage must use no more than 0.5-second gaps, candidate actions must be reopened at no more than 0.25-second gaps, and retained receptions/contacts/disputed outcomes must be checked at the highest practical source resolution. After the two continuous passes, separately rescan all ball arrivals/receptions, all defensive responsibilities (including no-touch actions), and all post-action continuations. A sparse long-interval ledger triggers an undercount audit, not an event quota.
+Apply the temporal-resolution gate and mandatory category rescans in `references/coverage-audit.md`. If still frames substitute for direct playback, baseline coverage must use no more than 0.5-second gaps, candidate actions must be reopened at no more than 0.25-second gaps, and retained receptions/contacts/disputed outcomes must be checked at the highest practical source resolution. After the two continuous passes, separately rescan all ball arrivals/receptions, all defensive responsibilities (including no-touch actions), and all post-action continuations. Complete the manifest's undercount audit for every full-match review; a sparse long-interval ledger is a failure signal to investigate, not an event quota.
 
 Include all of these when they can be attributed with adequate confidence:
 
@@ -137,7 +143,7 @@ Use direct visual language. Distinguish:
 
 Number all player-involvement sequences sequentially so the player can refer to them later, and number receptions inside the subset when useful. Report the total confirmed sequence windows, reception total, action-label breakdown, uncertain exclusions, and uncovered ranges. Because one sequence may carry multiple labels, do not add overlapping category counts as if they were mutually exclusive. Do not turn one event into a stable trait. Label a mechanism as repeated only when it appears across multiple independent events or phases.
 
-Run `scripts/coverage_audit.py validate` before calling the ledger complete. Pending blocks, a visible block without events or a quiet reason, unreconciled user markers, or an incomplete miss audit invalidate the completeness claim. Identity and visibility gaps must be named as coverage limits even when all review work is finished.
+Run `scripts/coverage_audit.py validate` before calling the ledger complete. The validator must confirm temporal-resolution metadata, all three category rescans, candidate dispositions, the undercount audit, every 30-second-or-shorter block's coverage disposition, pending blocks, visible blocks without events or a quiet reason, user-marker reconciliation, and miss audits. Identity gaps or unresolved candidates force `complete_eligible: false` and must be named as coverage limits even when all feasible review work is finished.
 
 ## 6. Review the whole performance automatically
 
@@ -153,6 +159,8 @@ Continuously review all located playing intervals for the complete player-involv
 If the user supplied markers or notes, verify them as an additional section; never make them a prerequisite. State whether each is supported, partly supported, contradicted, or not judgeable. Defensive sequences and meaningful no-touch actions belong in the main ledger, not in an optional appendix.
 
 Reconcile user markers only after the blind ledger is drafted. If a supported or partly supported marker was absent or materially misclassified, add the correction, record the miss cause, re-open the adjacent block, and re-scan the full playing time for the same event family. For example, one missed aerial action triggers an aerial rescan; one missed no-touch recovery triggers a transition rescan; one missed post-clearance decision triggers a second-action rescan. Record completion in the manifest before finalizing the report.
+
+If the player challenges a delivered full-match report for missing several material involvements or following the wrong player, withdraw that report's completeness claim immediately. Treat the old ledger, its identity anchors, and its quiet-block conclusions as untrusted evidence; perform a full-interval rebuild rather than patching only the examples the player named. The replacement report must reconcile every old retained event as confirmed, corrected, another player, merged, or unresolved.
 
 Disclose whether coverage was continuous, sampled, or restricted to clips. If technical limitations make complete review impossible, name the missing ranges and do not label either the player-involvement ledger or reception subset complete.
 
