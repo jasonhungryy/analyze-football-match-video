@@ -4,7 +4,7 @@ Use this workflow for every full-match or complete-playing-interval review. Its 
 
 ## Two independent passes
 
-Split every confirmed playing interval into blocks of no more than 60 seconds. Create a manifest with `scripts/coverage_audit.py` before detailed coding.
+Split every confirmed playing interval into blocks of no more than 30 seconds. Create a manifest with `scripts/coverage_audit.py` before detailed coding. The shorter block is a completeness checkpoint, not an event quota.
 
 ### Pass 1 — continuous identity track
 
@@ -24,7 +24,27 @@ Review every block again for actions and responsibilities. This pass answers “
 
 For a visible block with no material sequence, write a concrete `quiet_reason`. “Nothing happened” is not enough; use wording such as “player remained weak-side and the phase never entered their responsibility zone.”
 
+Every block must also contain one or more `coverage_dispositions`: `confirmed_direct_action`, `meaningful_off_ball`, `visible_no_material_involvement`, `not_visible_or_occluded`, `identity_ambiguous`, `confirmed_confuser`, or `dead_ball_or_stoppage`. The internal manifest must retain all blocks even when the readable coaching report hides quiet blocks. No unclassified block may be treated as reviewed.
+
 Candidate clips, contact sheets, tracking models, audio cues, and highlight metadata may help navigation. They never authorize skipping the continuous block review.
+
+### Multi-hypothesis identity rule
+
+Do not collapse uncertain identity to one tracker path. In every ambiguous block, retain all plausible target candidates near the ball, the target's lane, or the target's defensive responsibility. Include candidates that match any strong combination of clothing, footwear, build, side, position, motion continuity, and appearance re-identification. A single cue may propose a candidate but may not reject one.
+
+When the chosen path jumps to a teammate, reopen the interval from the last confident identity anchor through the next anchor and review the other hypotheses. Record each hypothesis in `candidate_dispositions`. An unresolved candidate is a coverage limit and prevents completeness language; it must not silently disappear from the ledger.
+
+### Identity-reference contamination rule
+
+When crop similarity, appearance matching, or automated tracking is used, keep an `identity_reference_audit` in the manifest:
+
+- every positive anchor must be checked in the full frame and list at least two visible identity cues;
+- keep easily confused teammates as negative references, including their number, socks, boots, or other disqualifying cues when visible;
+- never promote an old report timestamp or high similarity score to a positive anchor without manual full-frame confirmation;
+- if one anchor is rejected as another player, invalidate every result derived from that gallery and rebuild the full playing interval from clean anchors;
+- record the rejected anchor, contamination reason, and completed downstream rebuild. Merely deleting the crop does not repair prior candidate rankings or quiet-block conclusions.
+
+Do not mark the identity audit reviewed with a generic note. Name the confirmed cues and, when no appearance matching was used, state the manual continuity method instead.
 
 ### Temporal-resolution gate
 
@@ -72,7 +92,7 @@ After the two full passes, perform three independent whole-interval rescans befo
 2. **Defensive-responsibility rescan:** every direct duel plus no-touch delay, cover, marking, recovery, weak-side protection, line movement, aerial responsibility, and second-ball responsibility.
 3. **Post-action rescan:** at least the next 5–10 seconds after every touch, header, clearance, tackle, regain, disruption, or initial failed action.
 
-Keep a candidate disposition log: retained, merged, rejected as another player, rejected as ordinary visibility, or unresolved. A candidate list is not complete until every candidate has a disposition.
+Keep a candidate disposition log: `retained`, `merged`, `rejected_other_player`, `rejected_ordinary_visibility`, or `unresolved`. Set `candidate_generation_used: true` whenever trackers, detectors, similarity rankings, or machine-generated windows were used. A generated candidate list is not complete until every candidate has a disposition. `unresolved` is allowed only as an explicit coverage limitation and forces `complete_eligible: false`.
 
 As a sanity check, an unusually sparse ledger over a long, visible playing interval must trigger an undercount audit. Do not impose a minimum event quota or invent marginal events. Instead, verify player identity, side/direction of play, reception detection, no-touch defending, restarts, and phase continuation, and explain why the interval is genuinely quiet or coverage-limited.
 
@@ -87,6 +107,8 @@ If a supported or partly supported user marker was absent from the blind ledger:
 3. Re-open the adjacent coverage block.
 4. Re-scan the entire playing time for the same event family. A missed header triggers a full aerial rescan; a missed no-touch recovery triggers a full transition rescan; a missed second action triggers a full post-contact rescan.
 5. Record the re-scan in `miss_root_cause_audits` and do not close the manifest until it is marked reviewed.
+
+If the player reports several missed involvements or says the analysis followed the wrong person, supersede the entire prior completeness claim. Set `revision_audit.prior_report_challenged` to true, name the superseded report, and rebuild every playing-time block. Reconcile every previously retained event; do not retain an old row merely because it was already published.
 
 ## Manifest commands
 
@@ -106,9 +128,11 @@ After completing both passes and marker reconciliation, validate it:
 python scripts/coverage_audit.py validate work/coverage.json
 ```
 
-Validation fails when a block is pending, a visible block has neither events nor a quiet reason, an event lacks taxonomy/source fields, a marker is unreconciled, or a missed-event audit lacks the mandatory same-type re-scan.
+Validation fails when a block is pending, a block lacks a coverage disposition, a visible block has neither events nor a quiet reason, an event lacks taxonomy/source fields, a marker is unreconciled, a missed-event audit lacks the mandatory same-type re-scan, temporal-resolution metadata is insufficient, any category rescan is pending, a generated candidate has no disposition, the identity-reference audit is incomplete, a challenged prior report was only patched instead of rebuilt, or the undercount audit is incomplete.
 
-For workflows using extracted stills, validation is also substantively incomplete until the temporal-resolution gate, all three category rescans, source-resolution grading checks, and candidate disposition log are recorded, even if the current script cannot enforce every field mechanically.
+For workflows using extracted stills, set `review_substrate.mode` to `extracted_stills`, record `baseline_step_seconds` and `candidate_step_seconds`, and mark `source_resolution_checks` reviewed only after retained/disputed actions were checked at the highest practical source resolution. Direct playback still requires source-resolution checks and all category rescans.
+
+Complete the undercount audit for every full-match ledger. Explicitly recheck identity and direction of play, ball arrivals/receptions, no-touch defending, restarts/aerials, transitions/weak-side responsibility, and post-action continuations. Add a concrete notes summary; a bare “reviewed” is not enough.
 
 `complete_eligible: true` means the workflow has no pending block and no recorded visibility/identity gap. It does not mean machine-perfect or official-data completeness. When `complete_eligible` is false, report the affected ranges and call the result coverage-limited.
 
